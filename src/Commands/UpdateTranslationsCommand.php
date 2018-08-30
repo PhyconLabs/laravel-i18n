@@ -66,7 +66,7 @@ class UpdateTranslationsCommand extends Command
             }
 
             $translation = Translation::whereLocale( $defaultLocale )
-                ->whereNamespace( '' )
+                ->whereNamespace( '*' )
                 ->whereGroup( $group )
                 ->whereItem( $translationString )
                 ->first();
