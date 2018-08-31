@@ -56,7 +56,7 @@ class UpdateTranslationsCommand extends Command
         {
             if( mb_strpos( $translationString, '.' ) )
             {
-                $parts = explode( '.', $translationString );
+                $parts = explode( '.', $translationString, 2 );
                 $group = $parts[0];
                 $translationString = $parts[1];
             }
