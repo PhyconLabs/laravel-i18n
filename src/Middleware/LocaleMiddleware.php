@@ -53,6 +53,11 @@ class LocaleMiddleware
         // If a locale was set in the url:
         if( $uriLocale )
         {
+            if( $uriLocale === $defaultLocale )
+            {
+                return redirect( $this->uriLocalizer->cleanUrl( $currentUrl ) );
+            }
+
             $currentLanguage = $this->languageRepository->findByLocale( $uriLocale );
             $selectableLanguages = $this->languageRepository->allExcept( '' );
             $altLocalizedUrls = [];
