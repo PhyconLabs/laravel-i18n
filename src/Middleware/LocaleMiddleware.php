@@ -67,7 +67,7 @@ class LocaleMiddleware
                 $altLocalizedUrls[] = [
                     'locale' => $lang->locale,
                     'name' => $lang->name,
-                    'url' => $this->uriLocalizer->localize( $currentUrl, $lang->locale, $segment ),
+                    'url' => $lang->locale === $defaultLocale ? $this->uriLocalizer->cleanUrl( $currentUrl ) : $this->uriLocalizer->localize( $currentUrl, $lang->locale, $segment ),
                 ];
             }
 
@@ -91,7 +91,7 @@ class LocaleMiddleware
             $altLocalizedUrls[] = [
                 'locale' => $lang->locale,
                 'name' => $lang->name,
-                'url' => $this->uriLocalizer->localize( $currentUrl, $lang->locale, $segment ),
+                'url' => $lang->locale === $defaultLocale ? $this->uriLocalizer->cleanUrl( $currentUrl ) : $this->uriLocalizer->localize( $currentUrl, $lang->locale, $segment ),
             ];
         }
 
