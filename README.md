@@ -21,7 +21,7 @@ with:
 ```
 \Phycon\Translations\TranslationServiceProvider::class
 ```
-4. Migrate the translatino and locale tables
+4. Migrate the translation and locale tables
 ```
 php artisan migrate
 ```

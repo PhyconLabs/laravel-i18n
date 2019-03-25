@@ -115,8 +115,6 @@ class TranslationServiceProvider extends \Waavi\Translation\TranslationServicePr
      */
     public function registerCacheFlusher()
     {
-        //$cacheStore      = $this->app['cache']->getStore();
-        //$cacheRepository = CacheRepositoryFactory::make($cacheStore, $this->app['config']->get('translator.cache.suffix'));
         $command = new CacheFlushCommand( $this->app['translation.cache.repository'], $this->app['config']->get( 'translator.cache.enabled' ) );
 
         $this->app['command.translator:flush'] = $command;
