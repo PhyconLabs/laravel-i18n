@@ -42,12 +42,13 @@ class UpdateTranslationsCommand extends Command
 
         $directories = [
             app_path(),
-            resource_path( 'views' ),
+            resource_path(),
         ];
 
         foreach( $directories as $directory )
         {
             $this->getTranslationKeysFromDir( $translationStrings, $directory );
+            $this->getTranslationKeysFromDir( $translationStrings, $directory, 'vue' );
         }
 
         ksort( $translationStrings );
