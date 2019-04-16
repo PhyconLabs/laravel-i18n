@@ -103,9 +103,15 @@ class UpdateTranslationsCommand extends Command
             $this->getTranslationKeysFromFunction( $translationStrings, '__', $content );
         }
 
-        $menuLinks = config( 'larmin.menu.admin', [] );
+        $adminMenuLinks = config( 'larmin.menu.admin', [] );
+        $publicMenuLinks = config( 'larmin.menu.public', [] );
 
-        foreach( $menuLinks as $title => $options )
+        foreach( $adminMenuLinks as $title => $options )
+        {
+            $translationStrings[$title] = $title;
+        }
+
+        foreach( $publicMenuLinks as $title => $options )
         {
             $translationStrings[$title] = $title;
         }
