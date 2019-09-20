@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: maris
- * Date: 28/08/2018
- * Time: 15:33
- */
 
 namespace Phycon\Translations\Commands;
 
@@ -51,6 +45,57 @@ class UpdateTranslationsCommand extends Command
             $this->getTranslationKeysFromDir( $translationStrings, $directory, 'vue' );
         }
 
+        $validationMessages = require_once resource_path( 'lang/en/validation.php' );
+
+        foreach( $validationMessages as $translationKey => $translationMessage )
+        {
+            if( is_array( $translationMessage ) )
+            {
+                foreach( $translationMessage as $subTranslationKey => $subTranslationMessage )
+                {
+                    $translation = Translation::whereLocale( $defaultLocale )
+                        ->whereNamespace( '*' )
+                        ->whereGroup( 'validation' )
+                        ->whereItem( $translationKey . '.' . $subTranslationKey )
+                        ->first();
+
+                    if( !$translation )
+                    {
+                        $translation = new Translation( [
+                            'namespace' => '*',
+                            'group' => 'validation',
+                            'item' => $translationKey . '.' . $subTranslationKey,
+                            'text' => $subTranslationMessage,
+                            'locale' => $defaultLocale
+                        ] );
+
+                        $translation->save();
+                    }
+                }
+            }
+            else
+            {
+                $translation = Translation::whereLocale( $defaultLocale )
+                    ->whereNamespace( '*' )
+                    ->whereGroup( 'validation' )
+                    ->whereItem( $translationKey )
+                    ->first();
+
+                if( !$translation )
+                {
+                    $translation = new Translation( [
+                        'namespace' => '*',
+                        'group' => 'validation',
+                        'item' => $translationKey,
+                        'text' => $translationMessage,
+                        'locale' => $defaultLocale
+                    ] );
+
+                    $translation->save();
+                }
+            }
+        }
+
         ksort( $translationStrings );
 
         foreach( $translationStrings as $translationString )
@@ -72,7 +117,6 @@ class UpdateTranslationsCommand extends Command
                 ->whereItem( $translationString )
                 ->first();
 
-            // If the translation already exists, we update the text:
             if( !$translation )
             {
                 $translation = new Translation( [
