@@ -88,7 +88,7 @@ class TranslationsController extends Controller
 
         TranslationCache::flushAll();
 
-        response()->json( [ 'status' => 'success' ] );
+        return response()->json( [ 'status' => 'success' ] );
     }
 
     /**
