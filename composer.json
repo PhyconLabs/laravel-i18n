@@ -6,15 +6,20 @@
     "keywords": ["laravel", "translations", "i18n", "multilingual"],
     "authors": [
         {
+            "name": "Andis C.",
+            "email": "andis@phycon.com",
+            "homepage": "https://phycon.com",
+            "role": "Developer"
+        },
+        {
             "name": "Māris V.",
-            "email": "maris@phycon.com",
             "homepage": "https://phycon.com",
             "role": "Developer"
         }
     ],
     "minimum-stability": "dev",
     "require": {
-        "waavi/translation": "^2.3"
+        "waavi/translation": "^2.4"
     },
     "autoload": {
         "psr-4": {

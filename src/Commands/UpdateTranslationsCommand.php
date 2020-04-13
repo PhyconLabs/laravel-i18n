@@ -53,23 +53,50 @@ class UpdateTranslationsCommand extends Command
             {
                 foreach( $translationMessage as $subTranslationKey => $subTranslationMessage )
                 {
-                    $translation = Translation::whereLocale( $defaultLocale )
-                        ->whereNamespace( '*' )
-                        ->whereGroup( 'validation' )
-                        ->whereItem( $translationKey . '.' . $subTranslationKey )
-                        ->first();
-
-                    if( !$translation )
+                    if( is_array( $subTranslationMessage ) )
                     {
-                        $translation = new Translation( [
-                            'namespace' => '*',
-                            'group' => 'validation',
-                            'item' => $translationKey . '.' . $subTranslationKey,
-                            'text' => $subTranslationMessage,
-                            'locale' => $defaultLocale
-                        ] );
+                        foreach( $subTranslationMessage as $subSubTranslationKey => $subSubTranslationMessage )
+                        {
+                            $translation = Translation::whereLocale( $defaultLocale )
+                              ->whereNamespace( '*' )
+                              ->whereGroup( 'validation' )
+                              ->whereItem( $translationKey . '.' . $subTranslationKey . '.' . $subSubTranslationKey )
+                              ->first();
 
-                        $translation->save();
+                            if( !$translation )
+                            {
+                                $translation = new Translation( [
+                                  'namespace' => '*',
+                                  'group' => 'validation',
+                                  'item' => $translationKey . '.' . $subTranslationKey . '.' . $subSubTranslationKey,
+                                  'text' => $subSubTranslationMessage,
+                                  'locale' => $defaultLocale
+                                ] );
+
+                                $translation->save();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        $translation = Translation::whereLocale( $defaultLocale )
+                          ->whereNamespace( '*' )
+                          ->whereGroup( 'validation' )
+                          ->whereItem( $translationKey . '.' . $subTranslationKey )
+                          ->first();
+
+                        if( !$translation )
+                        {
+                            $translation = new Translation( [
+                              'namespace' => '*',
+                              'group' => 'validation',
+                              'item' => $translationKey . '.' . $subTranslationKey,
+                              'text' => $subTranslationMessage,
+                              'locale' => $defaultLocale
+                            ] );
+
+                            $translation->save();
+                        }
                     }
                 }
             }
