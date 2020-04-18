@@ -26,7 +26,7 @@ class TranslationServiceProvider extends \Waavi\Translation\TranslationServicePr
         ] );
 
         $this->publishes( [
-            __DIR__ . '/../resources/assets' => resource_path( 'assets' ),
+            __DIR__ . '/../resources/js' => resource_path( 'js' ),
         ] );
 
         $this->loadMigrationsFrom( __DIR__ . '/../database/migrations/' );
