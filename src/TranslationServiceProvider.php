@@ -22,11 +22,11 @@ class TranslationServiceProvider extends \Waavi\Translation\TranslationServicePr
     public function boot()
     {
         $this->publishes( [
-            __DIR__ . '/../config/translator.php' => config_path( 'translator.php' ),
+          __DIR__ . '/../config/translator.php' => config_path( 'translator.php' ),
         ] );
 
         $this->publishes( [
-            __DIR__ . '/../resources/assets' => resource_path( 'assets' ),
+          __DIR__ . '/../resources/js' => resource_path( 'js' ),
         ] );
 
         $this->loadMigrationsFrom( __DIR__ . '/../database/migrations/' );
